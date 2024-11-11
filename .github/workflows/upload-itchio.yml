@@ -1,0 +1,34 @@
+name: itch.io upload
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/prod'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Create export directory
+        run: mkdir html5
+
+      - name: Create export_presets.cfg
+        run: cp export_presets.html.example $WORKING_DIRECTORY/export_presets.cfg
+
+      - name: Godot HTML5 export
+        uses: dulvui/godot-4-html-export@v1
+        with:
+          godot-version: 4.2.2
+          godot-channel: stable
+
+      - name: Upload to itch.io
+        uses: dulvui/itchio-butler-upload@v0.0.1
+        with:
+          working-directory: html5
+          api-key: ${{ secrets.ITCHIO_API_KEY }}
+          user: Zabax32
+          game: asteroid-deportation-service
+          channel: html5
