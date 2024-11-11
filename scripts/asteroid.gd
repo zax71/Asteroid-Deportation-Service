@@ -3,6 +3,10 @@ extends RigidBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var camera = $"../Camera2D"
 @onready var earth = $earth_colision
+@onready var game_manager = $"../GameManager"
+
+
+
 var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
@@ -14,13 +18,16 @@ func _on_body_entered(body):
 		sprite.play("Explode")
 		await sprite.animation_finished
 		
+		# Remove earth health
+		game_manager.remove_health(1)
+		
 		# Duplicate and put in random position
 		var new_asteroid = self.duplicate()
 		get_parent().add_child(new_asteroid)
 		new_asteroid.set_position(random_pos())
 		
 		# Delete this copy
-		# self.queue_free()
+		self.queue_free()
 		
 
 func random_pos() -> Vector2:
