@@ -553,7 +553,7 @@ animations = [{
 radius = 153.013
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_huob0"]
-radius = 887.009
+radius = 2281.09
 
 [node name="Earth" type="StaticBody2D"]
 
@@ -563,7 +563,7 @@ sprite_frames = SubResource("SpriteFrames_nps0c")
 autoplay = "default"
 frame_progress = 0.596542
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="earth_colision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6mke2")
 
 [node name="Area2D" type="Area2D" parent="."]

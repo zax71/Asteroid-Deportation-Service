@@ -57,4 +57,4 @@ libraries = {
 zoom = Vector2(1.5, 1.5)
 
 [node name="Asteroid" parent="." instance=ExtResource("2_pupb0")]
-position = Vector2(-233, -363)
+position = Vector2(-416, -314)
