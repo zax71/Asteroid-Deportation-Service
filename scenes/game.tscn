@@ -68,3 +68,5 @@ position = Vector2(-477, -363)
 follow_viewport_enabled = false
 
 [connection signal="ready" from="GameManager" to="GameManager" method="_on_ready"]
+[connection signal="mouse_entered" from="Asteroid" to="Asteroid" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Asteroid" to="Asteroid" method="_on_mouse_exited"]

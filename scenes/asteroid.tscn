@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3qxroghfi6rr"]
+[gd_scene load_steps=18 format=3 uid="uid://d3qxroghfi6rr"]
 
 [ext_resource type="Texture2D" uid="uid://bygcqlm1jpmfe" path="res://assets/Asteroids/PNGs/Asteroid 01 - Base.png" id="1_4d6vw"]
 [ext_resource type="Script" path="res://scripts/asteroid.gd" id="1_qjsu5"]
+[ext_resource type="Script" path="res://scripts/asteroid_CollisionShape2D.gd" id="2_14mv8"]
 [ext_resource type="Texture2D" uid="uid://dadiw3ytcls5c" path="res://assets/Asteroids/PNGs/Asteroid 01 - Explode.png" id="3_anct0"]
+[ext_resource type="Script" path="res://scenes/asteroid_Area2D.gd" id="5_o2xr7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o1afn"]
 radius = 21.0
@@ -83,6 +85,9 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdf1b"]
+radius = 46.0
+
 [node name="Asteroid" type="RigidBody2D"]
 max_contacts_reported = 4
 contact_monitor = true
@@ -91,11 +96,20 @@ script = ExtResource("1_qjsu5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 2)
 shape = SubResource("CircleShape2D_o1afn")
+script = ExtResource("2_14mv8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ru8n4")
 animation = &"Default"
 autoplay = "Default"
 
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("5_o2xr7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xdf1b")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="mouse_entered" from="Area2D" to="Area2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="Area2D" method="_on_mouse_exited"]

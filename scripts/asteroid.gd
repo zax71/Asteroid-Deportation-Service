@@ -6,29 +6,34 @@ extends RigidBody2D
 @onready var game_manager = $"../GameManager"
 
 
-
 var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 	self.set_position(random_pos())
 
+func kill():
+	# Play animation
+	sprite.play("Explode")
+	await sprite.animation_finished
+		
+	
+		
+	# Duplicate and put in random position
+	var new_asteroid = self.duplicate()
+	get_parent().add_child(new_asteroid)
+	new_asteroid.set_position(random_pos())
+		
+	# Delete this copy
+	self.queue_free()
+
 func _on_body_entered(body):
 	if body.name == "Earth":
-		# Play animation
-		sprite.play("Explode")
-		await sprite.animation_finished
-		
 		# Remove earth health
 		game_manager.remove_health(10)
+		kill()
 		
-		# Duplicate and put in random position
-		var new_asteroid = self.duplicate()
-		get_parent().add_child(new_asteroid)
-		new_asteroid.set_position(random_pos())
-		
-		# Delete this copy
-		self.queue_free()
-		
+
+
 
 func random_pos() -> Vector2:
 	# Get camera corner coordinates.
@@ -68,3 +73,4 @@ func random_pos() -> Vector2:
 	
 	print("picked: " + str(point))
 	return point
+
