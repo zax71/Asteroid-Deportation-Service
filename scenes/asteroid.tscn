@@ -2,12 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://bygcqlm1jpmfe" path="res://assets/Asteroids/PNGs/Asteroid 01 - Base.png" id="1_4d6vw"]
 [ext_resource type="Script" path="res://scripts/asteroid.gd" id="1_qjsu5"]
-[ext_resource type="Script" path="res://scripts/asteroid_CollisionShape2D.gd" id="2_14mv8"]
 [ext_resource type="Texture2D" uid="uid://dadiw3ytcls5c" path="res://assets/Asteroids/PNGs/Asteroid 01 - Explode.png" id="3_anct0"]
 [ext_resource type="Script" path="res://scenes/asteroid_Area2D.gd" id="5_o2xr7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o1afn"]
 radius = 21.0
+
+[sub_resource type="GDScript" id="GDScript_00t73"]
+script/source = "extends CollisionShape2D
+
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3w56t"]
 atlas = ExtResource("1_4d6vw")
@@ -86,9 +90,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xdf1b"]
-radius = 46.0
+radius = 28.1603
 
-[node name="Asteroid" type="RigidBody2D"]
+[node name="Asteroid" type="RigidBody2D" groups=["asteroid"]]
 max_contacts_reported = 4
 contact_monitor = true
 script = ExtResource("1_qjsu5")
@@ -96,7 +100,7 @@ script = ExtResource("1_qjsu5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 2)
 shape = SubResource("CircleShape2D_o1afn")
-script = ExtResource("2_14mv8")
+script = SubResource("GDScript_00t73")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ru8n4")

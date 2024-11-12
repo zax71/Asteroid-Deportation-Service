@@ -15,19 +15,23 @@ func kill():
 	# Play animation
 	sprite.play("Explode")
 	await sprite.animation_finished
-		
 	
-		
-	# Duplicate and put in random position
-	var new_asteroid = self.duplicate()
-	get_parent().add_child(new_asteroid)
-	new_asteroid.set_position(random_pos())
-		
+	$"../GameManager".increment_difficulty()
+	
+	
+	while $"../GameManager".get_difficulty() >= len(get_tree().get_nodes_in_group("asteroid")):
+		print("Spawning new asteroid")
+		# Duplicate and put in random position
+		var new_asteroid = self.duplicate()
+		get_parent().add_child(new_asteroid)
+		new_asteroid.set_position(random_pos())
+	
 	# Delete this copy
 	self.queue_free()
 
 func _on_body_entered(body):
-	if body.name == "Earth":
+	if body.name == "Earth" and (not $Area2D.dead):
+		
 		# Remove earth health
 		game_manager.remove_health(10)
 		kill()
@@ -41,7 +45,7 @@ func random_pos() -> Vector2:
 	var bottom_right: Vector2 = camera.get_screen_center_position() + camera.get_viewport_rect().size / 2 
 	
 	var edge = rng.randi_range(1,4)
-	var distance: float = 100.0
+	var distance: float = 25
 	
 	var point: Vector2
 	
