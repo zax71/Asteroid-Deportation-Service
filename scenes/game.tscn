@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctob8lvwtr2tn"]
+[gd_scene load_steps=8 format=3 uid="uid://ctob8lvwtr2tn"]
 
+[ext_resource type="PackedScene" uid="uid://cyefrwtcvyhxe" path="res://scenes/hud.tscn" id="1_35ofw"]
 [ext_resource type="PackedScene" uid="uid://ch4vklgyokma4" path="res://scenes/earth.tscn" id="1_bjxqn"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_isow1"]
 [ext_resource type="PackedScene" uid="uid://d3qxroghfi6rr" path="res://scenes/asteroid.tscn" id="2_pupb0"]
@@ -49,7 +50,7 @@ _data = {
 script = ExtResource("1_isow1")
 
 [node name="Earth" parent="." instance=ExtResource("1_bjxqn")]
-position = Vector2(6, 2)
+position = Vector2(575, 325)
 rotation = 6.28319
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Earth"]
@@ -58,7 +59,12 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+position = Vector2(575, 325)
 
 [node name="Asteroid" parent="." instance=ExtResource("2_pupb0")]
 position = Vector2(-477, -363)
+
+[node name="HUD" parent="." instance=ExtResource("1_35ofw")]
+follow_viewport_enabled = false
+
+[connection signal="ready" from="GameManager" to="GameManager" method="_on_ready"]

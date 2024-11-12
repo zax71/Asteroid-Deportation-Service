@@ -19,7 +19,7 @@ func _on_body_entered(body):
 		await sprite.animation_finished
 		
 		# Remove earth health
-		game_manager.remove_health(1)
+		game_manager.remove_health(10)
 		
 		# Duplicate and put in random position
 		var new_asteroid = self.duplicate()
